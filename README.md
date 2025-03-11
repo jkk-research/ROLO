@@ -47,6 +47,7 @@ sudo add-apt-repository ppa:borglab/gtsam-release-4.1
 sudo apt install libgtsam-dev libgtsam-unstable-dev
 ```
 
+
 ## Compiling
 
 Create a ros 2 workspace, clone the `ROLO` repository into the `src` folder, and compile via the [`colcon`](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html) package :
@@ -60,17 +61,28 @@ colcon build --symlink-install --packages-select rolo_ros2 rolo_ros2_interfaces
 
 ## Test Data
 
+Source the workspace:
+
+```bash
+source ~/ros2_ws/install/setup.bash
+```
+
 For your convenience, we provide example test data [here](https://drive.google.com/file/d/1Xv8KFIYnK_ETduEiaSFqfBQGXi_yWvf8/view?usp=drive_link) (7 minutes, ~8.9GB). To run, first launch ROLO via:
 
 ```
-ros2 launch rolo rolo_run.launch
+ros2 launch rolo_ros2 rolo.launch.py
 ```
 
 In a separate terminal session, play back the downloaded bag:
 
+```bash
+wget https://raw.githubusercontent.com/jkk-research/ROLO/refs/heads/humble/qos_overrides.yaml
 ```
-rosbag play your-bag.bag -r 1
+
+```bash
+ros2 bag play your-bag.bag --qos-profile-overrides-path qos_overrides.yaml
 ```
+
 
 <div align="center">
 		 <img src="https://github.com/sdwyc/ROLO/blob/main/doc/img/off3_mapping_00.png" alt="Example Image" width="750" />

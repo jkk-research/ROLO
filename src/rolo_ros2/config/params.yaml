@@ -1,9 +1,9 @@
 imageProjection:
   ros__parameters:
     robot_id: "roboat"
-    pointCloudTopic: "/livox/lidar_PointCloud2"
+    pointCloudTopic: "/lexus3/os_center/points"
     odomTopic: "/odometry"
-    lidarFrame: "laser_link"
+    lidarFrame: "lexus3/os_center_a_laser_data_frame"
     baselinkFrame: "base_link"
     odometryFrame: "odometry"
     mapFrame: "map"
@@ -59,9 +59,9 @@ imageProjection:
 transformfusion:
   ros__parameters:
     robot_id: "roboat"
-    pointCloudTopic: "/livox/lidar_PointCloud2"
+    pointCloudTopic: "/lexus3/os_center/points"
     odomTopic: "/odometry"
-    lidarFrame: "laser_link"
+    lidarFrame: "lexus3/os_center_a_laser_data_frame"
     baselinkFrame: "base_link"
     odometryFrame: "odometry"
     mapFrame: "map"
