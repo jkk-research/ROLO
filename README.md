@@ -1,8 +1,3 @@
-# 说明：
-
-本人学习使用，移植至ros2 humble
-
-原文：
 ROLO-SLAM:
  Rotation-Optimized LiDAR-Only SLAM in Uneven Terrain with Ground Vehicle
 =========================================================================
@@ -26,26 +21,41 @@ ROLO-SLAM mitigates vertical pose drift by dividing the front-end into three mod
 
 Our system has been tested extensively on both Ubuntu 18.04 with ROS Melodic and Ubuntu 20.04 with ROS Noetic, although other versions may work. The following configuration with required dependencies has been verified to be compatible:
 
-- Ubuntu 18.04 or 20.04
-- ROS Melodic or Noetic (`nav_msgs`, `cv_bridge`, `rospy`, `roscpp`,  `std_msgs`,  `sensor_msgs`,  `geometry_msgs`,  `pcl_ros`, `tf`, `visualization_msgs`, `message_generation`)
+- Ubuntu 22.04
+- ROS Humble (`nav_msgs`, `cv_bridge`, `rospy`, `roscpp`,  `std_msgs`,  `sensor_msgs`,  `geometry_msgs`,  `pcl_ros`, `tf`, `visualization_msgs`, `message_generation`)
 - C++ 14
 - CMake >= `3.0.2`
-- OpenCV >= `4.10.0`
+- OpenCV >= `4.5` (used to be `4.10`)
 - GTSAM >= `4.2.0`
 - Boost >= `1.71`
 - GCC >= `8.4.0`
 - Point Cloud Library >= `1.10.0`
 - Eigen >= `3.3.7`
 
-## Compiling
-
-Create a catkin workspace, clone the `ROLO` repository into the `src` folder, and compile via the [`catkin_make`](http://wiki.ros.org/catkin/commands/catkin_make) package :
+```bash
+sudo apt install ros-${ROS_DISTRO}-pcl-ros
+```
 
 ```bash
-mkdir rolo_ws && cd rolo_ws && mkdir src && cd src
-git clone https://github.com/sdwyc/ROLO.git
-cd ..
-catkin_make
+sudo apt install libopencv-dev python3-opencv
+```
+
+```bash
+sudo add-apt-repository ppa:borglab/gtsam-release-4.1
+```
+```bash
+sudo apt install libgtsam-dev libgtsam-unstable-dev
+```
+
+## Compiling
+
+Create a ros 2 workspace, clone the `ROLO` repository into the `src` folder, and compile via the [`colcon`](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html) package :
+
+```bash
+cd ~/ros2_ws/src
+git clone https://github.com/jkk-research/ROLO -b humble
+cd ~/ros2_ws
+colcon build --symlink-install --packages-select rolo_ros2 rolo_ros2_interfaces
 ```
 
 ## Test Data
@@ -53,7 +63,7 @@ catkin_make
 For your convenience, we provide example test data [here](https://drive.google.com/file/d/1Xv8KFIYnK_ETduEiaSFqfBQGXi_yWvf8/view?usp=drive_link) (7 minutes, ~8.9GB). To run, first launch ROLO via:
 
 ```
-roslaunch rolo rolo_run.launch
+ros2 launch rolo rolo_run.launch
 ```
 
 In a separate terminal session, play back the downloaded bag:
